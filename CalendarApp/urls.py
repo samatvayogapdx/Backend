@@ -8,6 +8,7 @@ urlpatterns = [
     path('get-repeating-calendar/', CalendarEntryCurrentRepeating.as_view(), name='get-repeating-calendar'),
     path('delete-entry/<int:id>/', CalendarEntryDelete.as_view(), name='delete-entry'),
     path('get-calendar-days/<int:month>/<int:year>/', GetCalendarDays.as_view(), name='get-calendar-days'),
-
+    path('batch-moon-days/',BatchMoonDays.as_view(), name='batch-moon-days'),
+    path('get-moon-days/',GetMoonDays.as_view(), name='get-moon-days')
     
 ]

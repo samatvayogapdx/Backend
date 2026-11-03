@@ -6,10 +6,28 @@ days_of_week=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Satur
 class CalendarEntryModel(models.Model):
     type=models.CharField(default='One Time')
     start_date = models.DateField(default=timezone.now)
-    title=models.CharField(default='Class')
+    line_one=models.CharField(default='', max_length=20, blank=True)
+    line_two=models.CharField(default='', max_length=20, blank=True)
+    line_three=models.CharField(default='', max_length=20, blank=True)
     color=models.CharField(default='Black')
+    bg_color=models.CharField(default='White')
     which_days=models.IntegerField(default=0)
+    link=models.CharField(default='', blank=True)
 
+    def get_text(self):
+        return_text=[]
+
+        if self.line_one!='':
+            return_text.append(self.line_one)
+
+        if self.line_two!='':
+            return_text.append(self.line_two)
+
+        if self.line_three!='':
+            return_text.append(self.line_three)
+
+        return return_text     
+                       
     def get_which_days_list(self):
 
         index=6
