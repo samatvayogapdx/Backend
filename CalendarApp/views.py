@@ -4,7 +4,7 @@ from .serializers import *
 from .models import *
 from rest_framework.response import Response
 from rest_framework import status
-import datetime
+from datetime import datetime,date,timedelta
 
 class GetMoonDays(APIView):
     def get(self, request, *args, **kwargs):
@@ -27,9 +27,11 @@ class BatchMoonDays(APIView):
             characters_to_use.append('-')
 
             for index, one_date in enumerate(all_dates):
+
+                print(datetime.strptime(''.join([char for char in one_date if char in characters_to_use]), '%m/%d/%Y'))
                 CalendarEntryModel.objects.create(
                     type='Moon Day',
-                    start_date=datetime.date.strptime(''.join([char for char in one_date if char in characters_to_use]), '%m/%d/%Y'),
+                    start_date=datetime.strptime(''.join([char for char in one_date if char in characters_to_use]), '%m/%d/%Y').date(),
                     line_one=LineOneText[index%2],
                     line_two='',
                     line_three='',
@@ -39,7 +41,8 @@ class BatchMoonDays(APIView):
                 )
             # Return the newly created object data and a 201 Created status
             return Response({}, status=status.HTTP_201_CREATED)        
-        except:
+        except Exception as e:
+            print(e) 
             return Response({'error':'Entry not created'}, status=status.HTTP_400_BAD_REQUEST)
 
 class NewCalendarEntry(APIView):
@@ -95,14 +98,14 @@ class GetCalendarDays(APIView):
     def get(self, request, month, year, *args, **kwargs):
         month=month+1  #react they start at zero
         these_days=[]
-        first_day_of_month = datetime.date(year,month,1)
+        first_day_of_month = date(year,month,1)
         last_day_of_month=None
 
         try:
-            this_time_delta =datetime.date(year,month+1,1)-first_day_of_month
-            last_day_of_month = datetime.date(year,month,this_time_delta.days)
+            this_time_delta =date(year,month+1,1)-first_day_of_month
+            last_day_of_month = date(year,month,this_time_delta.days)
         except:
-            last_day_of_month=datetime.date(year,month,31)
+            last_day_of_month=date(year,month,31)
 
         these_one_time_records = CalendarEntryModel.objects.exclude(type='Repeating')
 
@@ -177,6 +180,6 @@ class GetCalendarDays(APIView):
 
             these_days.append(new_day)
 
-            this_day += datetime.timedelta(days=1)
+            this_day += timedelta(days=1)
 
         return Response({'these_days':these_days}, status =status.HTTP_200_OK )
