@@ -1,15 +1,24 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status,generics
 from django.core.mail import send_mail
+from .models import *
+from .serializers import*
+from rest_framework.permissions import AllowAny
+
+class CreateUserView(generics.CreateAPIView):
+    queryset=UserModel.objects.all()
+    serializer_class=UserModelSerializer
+    permission_classes =[AllowAny]
+
 
 class SubmitForm(APIView):
     def post(self, request, *args, **kwargs):
         try:
             send_mail(
                 subject='You have a new student!',
-                message='{} {}\nphone:{}\nemail:{}\nAbout me:{}'.format(
+                message='{} {}\nemail:{}\nphone:{}\nAbout me:{}'.format(
                     request.data['first_name'],
                     request.data['last_name'],
                     request.data['email'],
