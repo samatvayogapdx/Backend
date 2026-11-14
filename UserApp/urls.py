@@ -4,7 +4,7 @@ from .views import *
 
 urlpatterns = [
     path('register/', CreateUserView.as_view(), name='register'),   # was just for testing purposes
-    path('remove_user/<string:username>/', DeleteUser.as_view(), name='remove_user'),
+    path('remove_user/<str:username>/', DeleteUser.as_view(), name='remove_user'),
     path('token/',TokenObtainPairView.as_view(), name='token_obtain_pair' ),
     path('token/refresh/',TokenRefreshView.as_view(), name='token_refresh' ),
     path('intake-form/', SubmitForm.as_view(), name='intake-form')
