@@ -49,14 +49,16 @@ MIDDLEWARE = [
 ALLOWED_HOSTS = [
     "localhost:5173",
     'samatvayogapdx.com',
-    'samatvayogapdx.onrender.com'
+    'samatvayogapdx.onrender.com',
+    'backend-9og4.onrender.com'
     ]
 
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     'https://samatvayogapdx.com',
-    'https://samatvayogapdx.onrender.com'
+    'https://samatvayogapdx.onrender.com',
+    'https://backend-9og4.onrender.com'
     ]
 
 ROOT_URLCONF = 'deepabackend.urls'
