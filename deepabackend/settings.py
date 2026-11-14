@@ -58,6 +58,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     'https://samatvayogapdx.com',
     'https://samatvayogapdx.onrender.com',
+    'https://www.samatvayogapdx.com',
     'https://backend-9og4.onrender.com'
     ]
 
