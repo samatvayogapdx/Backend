@@ -12,6 +12,13 @@ class CreateUserView(generics.CreateAPIView):
     serializer_class=UserModelSerializer
     permission_classes =[AllowAny]
 
+class DeleteUser(APIView):
+    def delete(self, request, username, *args, **kwargs):
+        try:
+            UserModel.objects.get(username=username).delete()
+            return Response({'status':'OK'}, status=status.HTTP_201_CREATED) 
+        except:
+            return Response({'error':'user not delete'}, status=status.HTTP_400_BAD_REQUEST)
 
 class SubmitForm(APIView):
     def post(self, request, *args, **kwargs):
