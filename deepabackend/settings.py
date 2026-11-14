@@ -46,10 +46,18 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+ALLOWED_HOSTS = [
+    "localhost:5173",
+    'samatvayogapdx.com',
+    'samatvayogapdx.onrender.com'
+    ]
+
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     'https://samatvayogapdx.com',
-    'https://samatvayogapdx.onrender.com']
+    'https://samatvayogapdx.onrender.com'
+    ]
 
 ROOT_URLCONF = 'deepabackend.urls'
 
